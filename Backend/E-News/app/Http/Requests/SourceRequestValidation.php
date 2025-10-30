@@ -11,7 +11,7 @@ class SourceRequestValidation extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,20 @@ class SourceRequestValidation extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required | string | max:255',
+            'slug' => 'required | string | max:255',
+            'url_logo' => 'required | string | url',
+            'is_active' => 'required | boolean',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Le nom est obligatoire',
+            'slug.required' => 'Le slug est obligatoire',
+            'url_logo.required' => 'L\'url de l\'image est obligatoire',
+            'is_active.required' => 'L\'actif est obligatoire',
         ];
     }
 }

@@ -23,11 +23,23 @@ class ArticlesRequestValidation extends FormRequest
     {
         return [
             'title' => 'required | string | max:255',
-            'category' => 'required | string',
-            'summary' => 'required | string',
-            'content' => 'required | string',
-            'image_url' => 'required | string',
-            'published_at' => 'required | string',
+            'category' => 'required | string | max:255',
+            'summary' => 'required | string | max:255',
+            'content' => 'required | text',
+            'image_url' => 'required | string | url',
+            'published_at' => 'required | string | date',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'Le titre est obligatoire',
+            'category.required' => 'La catégorie est obligatoire',
+            'summary.required' => 'Le résumé est obligatoire',
+            'content.required' => 'Le contenu est obligatoire',
+            'image_url.required' => 'L\'image est obligatoire',
+            'published_at.required' => 'La date de publication est obligatoire',
         ];
     }
 }

@@ -24,15 +24,17 @@ class UserRequestValidation extends FormRequest
         return [
             'name' => 'required | string | max:255',
             'email' => 'required | string | email | max:255 | unique:users',
-            'password' => 'required | string | min:8 | confirmed'
+            'password' => 'required | string | min:8 | confirmed',
+            'categories_user' => 'required | array'
         ];
     }
 
-    public function message(){
+    public function messages(): array{
         return [
             'name.required' => 'Name is required',
             'email.required' => 'Email is required',
             'password.required' => 'Password is required',
+            'categories_user.required' => 'Categories is required',
         ];
     }
 }
