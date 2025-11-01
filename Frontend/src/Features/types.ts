@@ -1,12 +1,12 @@
 import z  from "zod/v4";
 
-const LoginSchema = z.object({
+export const LoginSchema = z.object({
     email: z.email(),
     password: z.string().min(8, "Incorrect Password!")
 })
 export type LoginInputs = z.infer<typeof LoginSchema>;
 
-const RegisterSchema = z.object({
+export const RegisterSchema = z.object({
     username: z.string().min(2, "Enter a valid username!"),
     email: z.email(),
     password: z.string().min(8, "Minimum 8 characters!").refine(pass => pass.includes('')),
