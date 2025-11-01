@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('source_id')->constrained()->cascadeOnDelete();
-            $table->string('category');
+            $table->string('category')->index();
             $table->string('title');
             $table->string('summary');
             $table->text('content');
             $table->string('url_image');
-            $table->datetime('published_at');
+            $table->datetime('published_at')->index();
             $table->timestamps();
         });
     }
