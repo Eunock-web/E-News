@@ -7,7 +7,7 @@ export const routes = createBrowserRouter([{
     path: '/',
     Component: App,
     children: [
-        { path: '', index: true, Component: PageLogin },
+        { path: 'login', index: true, Component: PageLogin },
         { path: 'register', Component:  PageRegister}
     ]
 }])

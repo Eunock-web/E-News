@@ -32,7 +32,8 @@ const FormLogin = () => {
   return (
     <form className='w-[35%] rounded-xl p-4 m-auto h-max' onSubmit={onSubmit}>
         <h1 className='text-2xl '>Welcome back!</h1>
-
+        <hr className='my-3 border-gray-300' />
+      
         <Controller 
           control={control}
           name='email'
@@ -51,7 +52,7 @@ const FormLogin = () => {
         {states.errors.root && <p><i data-lucide={Info}></i> {states.errors.root.message}</p>}  
 
         <Button {...buttonProps}/>      
-        <p className='text-center mt-5'>Just discovered E-News? <Link to='register' className='text-(--bg-primary) duration-300 border-b-2 border-transparent hover:border-b-(--bg-primary)'>Register here.</Link></p>
+        <p className='text-center mt-5'>Just discovered E-News? <Link to='/register' className='text-(--bg-primary) duration-300 border-b-2 border-transparent hover:border-b-(--bg-primary)'>Register here.</Link></p>
     </form>
   )
 }

@@ -9,7 +9,7 @@ const TextField: FC<ITextFieldProps> = ( { type, label, className, placeholder, 
                 {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
             </div>              
            
-            <input type={type ?? 'text'} id={label} className={className ?? ('block max-w-full w-full px-3 py-2 rounded-md   border-[0.5px] border-gray-300 outline-2 ' + (errorMessage ? 'outline-red-500 text-red-700' : 'focus-visible:outline-blue-500 outline-transparent bg-gray-100'))} placeholder={placeholder} onChange={onChange}  />
+            <input type={type ?? 'text'} id={label} className={className ?? ('block max-w-full w-full px-3 py-2 rounded-md   border-[0.5px] border-gray-300 outline-2 ' + (errorMessage ? 'outline-red-500 text-red-700' : 'focus-visible:outline-blue-500 outline-transparent bg-gray-100'))} placeholder={placeholder} onChange={onChange} required  />
         </div>
      );
 }

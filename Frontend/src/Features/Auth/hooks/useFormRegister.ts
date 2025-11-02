@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { RegisterSchema, type RegisterInputs } from '../../types'
 
 const useFormRegister = () => {
   const form = useForm<RegisterInputs>({
-    resolver: zodResolver(RegisterSchema)
+    resolver: zodResolver(RegisterSchema),
+    mode:'onChange'
   })
 
   const onSubmit = (data:RegisterInputs) => {
@@ -14,7 +14,7 @@ const useFormRegister = () => {
 
   return {
     control: form.control,
-    states: form.formState,
+    states: form.formState.errors,
     onSubmit: form.handleSubmit(onSubmit, (data) => console.log(data))
   }
 }
