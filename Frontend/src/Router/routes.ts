@@ -1,13 +1,22 @@
 import { createBrowserRouter } from "react-router";
 import App from '../App';
-import PageLogin from "../Presentation/PageLogin";
-import PageRegister from "../Presentation/PageRegister";
+import AuthLayout from "../Presentation/Layout/AuthLayout";
+import FormLogin from "../Features/Auth/Components/FormLogin";
+import FormRegister from "../Features/Auth/Components/FormRegister";
+import FormForgotPass from "../Features/Auth/Components/FormForgotPass";
 
 export const routes = createBrowserRouter([{
-    path: '/',
+    path: '',
     Component: App,
     children: [
-        { path: 'login', index: true, Component: PageLogin },
-        { path: 'register', Component:  PageRegister}
+        {
+            path: '/', 
+            Component: AuthLayout,
+            children: [
+                { path: 'login', index:true, Component: FormLogin},
+                { path: 'register', Component:  FormRegister},
+                { path:'forgot-password', Component: FormForgotPass }
+            ]
+        }  
     ]
 }])

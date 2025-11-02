@@ -1,26 +1,14 @@
 import { Controller } from 'react-hook-form'
 import useFormLogin from '../hooks/useFormLogin'
 import TextField from '../../../Utils/Components/TextField/TextField';
-import type { IButtonProps, ITextFieldProps } from '../../../Utils/Components/types';
+import type { IButtonProps } from '../../../Utils/Components/types';
 import { Info } from 'lucide-react';
 import Button from '../../../Utils/Components/Button/Button';
 import { Link } from 'react-router';
+import { emailProps, passwordProps } from '../../types';
 
 const FormLogin = () => {
   const {control, states, onSubmit} = useFormLogin();
-  const emailProps: ITextFieldProps = {
-    type: 'email',
-    label: 'Email',
-    placeholder: 'name@example.com',
-    onChange: () => {}
-  }
-  
-  const passwordProps: ITextFieldProps = {
-    type: 'password',
-    label: 'Password',
-    placeholder:'••••••••••',
-    onChange: () => {}
-  }
   
   const buttonProps: IButtonProps = {
     type:'submit',
@@ -47,7 +35,7 @@ const FormLogin = () => {
           rules={{required:true}}
           render={({field}) => <TextField {...passwordProps} onChange={field.onChange}/>}
         />
-        <p className='w-max flex justify-self-end mt-5 hover:text-(--bg-primary) cursor-pointer'>Forgot password ?</p>
+        <Link to={'/forgot-password'} className='w-max flex justify-self-end mt-5 hover:text-(--bg-primary) cursor-pointer'>Forgot password ?</Link>
 
         {states.errors.root && <p><i data-lucide={Info}></i> {states.errors.root.message}</p>}  
 
