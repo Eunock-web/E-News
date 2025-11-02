@@ -1,6 +1,6 @@
 import FormLogin from '../Features/Auth/Login/FormLogin'
 
-const LoginPresentation = () => {
+const PageLogin = () => {
   return (
     <div className='w-full items-baseline h-full'>
         <div className='absolute left-10 top-10'>
@@ -15,4 +15,4 @@ const LoginPresentation = () => {
   )
 }
 
-export default LoginPresentation
+export default PageLogin

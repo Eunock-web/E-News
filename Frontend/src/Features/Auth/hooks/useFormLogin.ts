@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
  * React Hook Form for login process handling.
  * @returns 
  */
-const useLoginForm = () => {
+const useFormLogin = () => {
   const form = useForm<LoginInputs>({
     resolver: zodResolver(LoginSchema)
   });
@@ -21,4 +21,4 @@ const useLoginForm = () => {
   }
 }
 
-export default useLoginForm
+export default useFormLogin

@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router";
 import App from '../App';
-import LoginPresentation from "../Presentation/LoginPage";
+import PageLogin from "../Presentation/PageLogin";
+import PageRegister from "../Presentation/PageRegister";
 
 export const routes = createBrowserRouter([{
     path: '/',
     Component: App,
     children: [
-        { path: '', index: true, Component: LoginPresentation }
+        { path: '', index: true, Component: PageLogin },
+        { path: 'register', Component:  PageRegister}
     ]
 }])
