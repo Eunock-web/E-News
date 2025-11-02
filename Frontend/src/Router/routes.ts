@@ -4,6 +4,7 @@ import AuthLayout from "../Presentation/Layout/AuthLayout";
 import FormLogin from "../Features/Auth/Components/FormLogin";
 import FormRegister from "../Features/Auth/Components/FormRegister";
 import FormForgotPass from "../Features/Auth/Components/FormForgotPass";
+import FormResetPass from "../Features/Auth/Components/FormResetPass";
 
 export const routes = createBrowserRouter([{
     path: '',
@@ -15,7 +16,8 @@ export const routes = createBrowserRouter([{
             children: [
                 { path: 'login', index:true, Component: FormLogin},
                 { path: 'register', Component:  FormRegister},
-                { path:'forgot-password', Component: FormForgotPass }
+                { path:'forgot-password', Component: FormForgotPass },
+                { path:'reset-password', Component: FormResetPass }
             ]
         }  
     ]
