@@ -1,8 +1,9 @@
-import FormLogin from './Features/Auth/Login/FormLogin'
+import { Outlet } from 'react-router'
 import './App.css'
+
 const App = () => {
   return (
-      <FormLogin/>    
+      <Outlet/>
   )
 }
 
