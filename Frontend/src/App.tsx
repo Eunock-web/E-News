@@ -1,8 +1,8 @@
-import React from 'react'
-
+import FormLogin from './Features/Auth/Login/FormLogin'
+import './App.css'
 const App = () => {
   return (
-    <div>App</div>
+      <FormLogin/>    
   )
 }
 

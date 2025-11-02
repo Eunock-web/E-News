@@ -1,9 +1,9 @@
 export interface ITextFieldProps{
     type: string,
     label: string, 
-    className: string,
+    className?: string,
     placeholder: string, 
-    errorMessage: string,
+    errorMessage?: string,
     onChange: () => void
 }
 
@@ -12,5 +12,5 @@ export interface IButtonProps {
     textContent: string,
     className: string,
     icon: string,
-    onClick: () => void
+    onClick?: () => void
 }

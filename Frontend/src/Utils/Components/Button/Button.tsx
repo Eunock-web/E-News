@@ -8,7 +8,7 @@ const Button: FC<IButtonProps> = ({type, textContent, className, icon, onClick})
         <button 
             type={type ?? 'button'}
             onClick={onClick}
-            className={ className + ' rounded-md  font-medium flex gap-3 justify-center'}            
+            className={ className + ' rounded-md font-medium flex gap-3 justify-center cursor-pointer shadow-2xl duration-200 hover:opacity-70 hover:scale-95'}            
         >
               {icon ? <img src={icon} alt="image-logo" /> : ''}  {textContent}
         </button>

@@ -17,7 +17,7 @@ const useLoginForm = () => {
   return {
     control: form.control,
     states: form.formState,
-    onSubmit: form.handleSubmit(onSubmit)
+    onSubmit: form.handleSubmit(onSubmit, (data)=>console.log(data))
   }
 }
 

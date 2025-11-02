@@ -9,7 +9,7 @@ export type LoginInputs = z.infer<typeof LoginSchema>;
 export const RegisterSchema = z.object({
     username: z.string().min(2, "Enter a valid username!"),
     email: z.email(),
-    password: z.string().min(8, "Minimum 8 characters!").refine(pass => pass.includes('')),
+    password: z.string().min(8, "Minimum 8 characters!"),
     confirmPassword: z.string()
 }).refine(schema => schema.password === schema.confirmPassword, {
     error: "Passwords don't match!",
