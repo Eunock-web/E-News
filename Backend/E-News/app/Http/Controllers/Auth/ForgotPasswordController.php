@@ -13,25 +13,37 @@ use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {
-    public function ForgotPassword(Request $request){
-        $request->validate(['email' => 'required | email']);
+      /**
+     * Envoyer le lien de réinitialisation du mot de passe
+     */
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email' 
+        ]);
 
         $status = Password::sendResetLink(
             $request->only('email')
         );
 
-        if($status === Password::ResetLinkSent()){
-                return reponse()->json([
-                    'status' => __($status)
-                ]);
-        }else{
-                return reponse()->json([
-                    'email' => __($status)
-                ]);
+        // Comparer avec la constante correctement
+        if ($status === Password::RESET_LINK_SENT) {
+            return response()->json([
+                'message' => 'Password reset link sent to your email'
+            ], 200);
         }
+
+        // Si l'email n'existe pas ou autre erreur
+        return response()->json([
+            'message' => __($status)
+        ], 422);
     }
 
-    public function ResetPassword(Request $request) {
+    /**
+     * Réinitialiser le mot de passe
+     */
+    public function resetPassword(Request $request)
+    {
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
@@ -40,7 +52,7 @@ class ForgotPasswordController extends Controller
 
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
-            function (User $user, string $password) {
+            function ($user, $password) {
                 $user->forceFill([
                     'password' => Hash::make($password)
                 ])->setRememberToken(Str::random(60));
@@ -51,16 +63,15 @@ class ForgotPasswordController extends Controller
             }
         );
 
-        if($status === Password::PasswordReset){
+        if ($status === Password::PASSWORD_RESET) {
             return response()->json([
-                'status' => __($status)
-            ]);
-        }else{
-            return response()->json([
-                'email' => __($status)
-            ]);
+                'message' => 'Password reset successfully'
+            ], 200);
         }
-    }
 
+        return response()->json([
+            'message' => __($status)
+        ], 422);
+    }
 }
 

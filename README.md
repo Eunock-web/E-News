@@ -15,7 +15,7 @@ cp .env.example .env
 
 # 3. Préparer l'application
 php artisan key:generate
-
+    
 # 4. Lancer les migrations de la DB
 php artisan migrate
 
