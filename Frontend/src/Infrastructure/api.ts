@@ -1,5 +1,6 @@
+import useNotificationManager from "../Utils/Components/Notification/hooks/useNotificationManager";
 
-const BASEURL = 'http://localhost:8080/'; 
+const BASEURL = 'http://127.0.0.1:8000/'; 
 
 interface option  {
     'Content-Type': 'application/json',
@@ -8,7 +9,7 @@ interface option  {
     method: string
 };
 
-export async function apiFetch(url:string, method = 'GET', data?:object ){
+export async function apiFetch(url:string, method = 'GET', data?:object ): Promise<any>{
     const options: option = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer',
@@ -25,13 +26,13 @@ export async function apiFetch(url:string, method = 'GET', data?:object ){
     try {
         await fetch(BASEURL + url, options).then(response =>{ 
             if(response.ok){
-            return response.json()
+                return response.json();
             }
-            throw new Error(`Status: ${response.status}, No response. Error raised`) 
+            throw new Error(`Status: ${response.status}, No response. Error raised`)             
         }
         ).catch(err => console.error(err))
     }catch(error){
-        console.warn(error)
+        return error;        
     }
 }
     

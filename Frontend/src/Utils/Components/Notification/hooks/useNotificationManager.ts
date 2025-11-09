@@ -4,7 +4,7 @@ import { NotificationContext } from '../NotificationProvider'
 
 export interface NotificationManager {
     notifications: NotificationProps[],
-    render: (message:string, type: NotificationType) => void,
+    notify: (message:string, type: NotificationType) => void,
     removeNotification: (id:string) => void
 }
 

@@ -7,8 +7,8 @@ export const NotificationContext = createContext<undefined| NotificationManager>
 
 const NotificationProvider: FC<{children: ReactNode}> = ({children}) => {
     const [notifications, setNotifications] = useState<NotificationProps[]>([]);
-    const {render, removeNotification} = useNotification(notifications, setNotifications);
-    const context = {notifications, render, removeNotification}
+    const {notify, removeNotification} = useNotification(notifications, setNotifications);
+    const context = {notifications, notify, removeNotification}
   return (
     <NotificationContext.Provider value={context}>
         {children}

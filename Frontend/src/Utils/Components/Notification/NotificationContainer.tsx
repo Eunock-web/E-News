@@ -10,9 +10,8 @@ const NotificationContainer:FC = () => {
     <NotificationPortal>
         <div className='fixed top-4 right-4 z-1000 animation'>
             <div className='relative'>                
-                {notifications.map(nt => <NotificationToast {...nt} close={()=>removeNotification(nt.id)} />)}                
-            </div>
-            
+                {notifications.map((nt, index) => <NotificationToast key={index} {...nt} close={()=>removeNotification(nt.id)} />)}                
+            </div>            
         </div>
     </NotificationPortal>
   )

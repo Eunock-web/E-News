@@ -1,19 +1,20 @@
 import { useCallback, type Dispatch, type SetStateAction } from 'react'
 import type { NotificationProps, NotificationType } from '../NotificationToast'
 
-const NOTIFICATION_TIME = 2000;
+const NOTIFICATION_TIME = 4000;
 
 const useNotification = (notifications:NotificationProps[], setNotifications:Dispatch<SetStateAction<NotificationProps[]>>) => {
     
-    const removeNotification = (id:string) => {
+    const removeNotification = async (id:string) => {
         const notification = document.getElementById(id);
         if(!notification) return;
         const animate = notification?.animate([
-            {opacity: 0, transform: 'translateX(-200px)'}
-        ], {duration: 1000, easing: 'ease-in-out', fill: 'forwards'});
-
+            {opacity: 0, transform: 'translateX(-100px)'}
+        ], {duration: 500, easing: 'ease-in-out', fill: 'forwards'});
+        
         if(animate)
-            setNotifications((prev:NotificationProps[]) => prev.filter(n => n.id !== notification.id))
+            animate.onfinish = () => setNotifications((prev:NotificationProps[]) => prev.filter(n => n.id !== id))
+                             
     }
 
     const renderNotification = useCallback((message:string, type:NotificationType)=>{
@@ -34,7 +35,7 @@ const useNotification = (notifications:NotificationProps[], setNotifications:Dis
     
 
   return {
-    render: renderNotification,
+    notify: renderNotification,
     notifications: notifications, 
     removeNotification
   }

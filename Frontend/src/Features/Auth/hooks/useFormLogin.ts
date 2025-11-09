@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { LoginSchema, type LoginInputs } from '../../types'
 import { zodResolver } from '@hookform/resolvers/zod';
+import useMutationLogin from './useMutationLogin';
 /**
  * React Hook Form for login process handling.
  * @returns 
@@ -9,9 +10,10 @@ const useFormLogin = () => {
   const form = useForm<LoginInputs>({
     resolver: zodResolver(LoginSchema)
   });
+  const mutation = useMutationLogin();
 
   const onSubmit = (data: LoginInputs) => {
-    console.log(data)
+    mutation.mutate(data);
   }
 
   return {

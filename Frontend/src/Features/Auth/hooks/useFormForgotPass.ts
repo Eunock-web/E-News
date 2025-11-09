@@ -2,16 +2,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { ForgotPassSchema, type ForgotPassInput } from '../../types';
 import { useNavigate } from 'react-router';
+import useNotificationManager from '../../../Utils/Components/Notification/hooks/useNotificationManager';
 
 const useFormForgotPass = () => {
     const form = useForm<ForgotPassInput>({
        resolver: zodResolver(ForgotPassSchema), 
        mode: 'onChange'       
     });         
-    const navigate = useNavigate();
+    const { notify } = useNotificationManager();
+    // const navigate = useNavigate();
 
     const onSubmit = (data: ForgotPassInput) => {
-        navigate('/reset-password')
+        
+        console.log(data);
     }  
     return {
        control: form.control,
