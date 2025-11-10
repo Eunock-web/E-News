@@ -22,12 +22,17 @@ Route::prefix('auth')->group(function () {
     Route::post('/register', [AuthentificationController::class, 'register']);
     Route::post('/login', [AuthentificationController::class, 'login']);
     
-    // Réinitialisation de mot de passe
+    // Réinitialisation de mot de passe (routes publiques)
     Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])
         ->name('password.email');
     
     Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])
         ->name('password.update');
+    
+    // Vérification d'email (route publique pour permettre le clic sur le lien)
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'EmailVerificationRequest'])
+        ->middleware('signed')
+        ->name('verification.verify');
     
     // Fallback pour routes protégées
     Route::get('/login', [AuthentificationController::class, 'loginView'])
@@ -54,19 +59,14 @@ Route::middleware('auth:sanctum')->group(function () {
         // Confirmation de mot de passe
         Route::post('/confirm-password', [AuthentificationController::class, 'confirmPassword']);
         
-        // Vérification d'email
+        // Vérification d'email (routes protégées)
         Route::prefix('email')->group(function () {
-            // Vérifier l'email via lien
-            Route::get('/verify/{id}/{hash}', [EmailVerificationController::class, 'EmailVerificationRequest'])
-                ->middleware('signed')
-                ->name('verification.verify');
-            
-            // Renvoyer l'email de vérification
+            // Renvoyer l'email de vérification (utilisateur doit être authentifié)
             Route::post('/verification-notification', [EmailVerificationController::class, 'ResendEmailVarification'])
                 ->middleware('throttle:6,1')
                 ->name('verification.send');
             
-            // Vérifier si l'email est déjà vérifié
+            // Vérifier si l'email est déjà vérifié (utilisateur doit être authentifié)
             Route::get('/verification-status', [EmailVerificationController::class, 'status']);
         });
     });
@@ -85,7 +85,7 @@ Route::middleware('auth:sanctum')->group(function () {
         // Récupérer un article spécifique
         Route::get('/articles/{id}', [NewsController::class, 'retrieveArticle']);
     });
-});
+    });
 
 
 

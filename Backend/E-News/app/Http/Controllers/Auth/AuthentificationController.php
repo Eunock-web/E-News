@@ -14,6 +14,7 @@ class AuthentificationController extends Controller
 {
     /**
      * Inscription d'un nouvel utilisateur
+     * Envoie automatiquement un email de vérification
      */
     public function register(UserRequestValidation $request)
     {
@@ -23,22 +24,28 @@ class AuthentificationController extends Controller
             'name' => $credentials['name'],
             'email' => $credentials['email'],
             'password' => Hash::make($credentials['password']),
-            'categories_user' => $credentials['categories_user'],
+            'categories_user' => $credentials['categories_user'] ?? [],
         ]);
 
+        // Déclencher l'événement d'inscription (envoie automatiquement l'email de vérification)
         event(new Registered($user));
         
+        // Créer un token pour l'utilisateur
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
+            'success' => true,
             'access_token' => $token,
             'token_type' => 'Bearer',
             'user' => $user,
+            'response' => 'Registration successful. Please verify your email address.',
+            'email_verified' => $user->hasVerifiedEmail(),
         ], 201);
     }
 
     /**
      * Connexion d'un utilisateur
+     * Vérifie si l'email est vérifié avant de permettre la connexion
      */
     public function login(LoginRequestValidation $request)
     {
@@ -48,18 +55,28 @@ class AuthentificationController extends Controller
 
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
             return response()->json([
-                'message' => 'Invalid credentials'
+                'response' => 'Invalid credentials'
             ], 401);
         }
 
+        // Vérifier si l'email est vérifié
+        if (!$user->hasVerifiedEmail()) {
+            return response()->json([
+                'response' => 'Please verify your email address before logging in.',
+                'email_verified' => false,
+                'user_id' => $user->id,
+            ], 403);
+        }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
+            'success' => true,
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'message' => 'Login successfully',
+            'response' => 'Login successfully',
             'user' => $user,
+            'email_verified' => true,
         ], 200);
     }
 
@@ -73,11 +90,13 @@ class AuthentificationController extends Controller
                     $request->user()->currentAccessToken()->delete();
 
                     return response()->json([
-                        'message' => 'Logout successfully'
+                        'success' => true,
+                        'response' => 'Logout successfully'
                     ], 200);
                 } catch (\Exception $e) {
                     return response()->json([
-                        'message' => 'Logout failed',
+                        'success' => false,
+                        'response' => 'Logout failed',
                         'error' => $e->getMessage()
                     ], 500);
                 }
@@ -92,7 +111,8 @@ class AuthentificationController extends Controller
         $request->user()->tokens()->delete();
 
         return response()->json([
-            'message' => 'All sessions logged out successfully'
+            'success' => true,
+            'response' => 'All sessions logged out successfully'
         ], 200);
     }
 
@@ -107,12 +127,14 @@ class AuthentificationController extends Controller
 
         if (!Hash::check($request->password, $request->user()->password)) {
             return response()->json([
-                'message' => 'The provided password does not match our records.'
+                'success' => false,
+                'response' => 'The provided password does not match our records.'
             ], 422);
         }
 
         return response()->json([
-            'message' => 'Password confirmed successfully'
+            'success' => true,
+            'response' => 'Password confirmed successfully'
         ], 200);
     }
 
@@ -122,7 +144,8 @@ class AuthentificationController extends Controller
     public function loginView()
     {
         return response()->json([
-            'message' => 'Authentication required'
+            'success' => false,
+            'response' => 'Authentication required'
         ], 401);
     }
 
@@ -132,6 +155,8 @@ class AuthentificationController extends Controller
     public function user(Request $request)
     {
         return response()->json([
+            'success' => true,
+            'response' => 'User retrieved successfully',
             'user' => $request->user()
         ], 200);
     }
@@ -156,13 +181,15 @@ class AuthentificationController extends Controller
             }
 
             return response()->json([
+                'success' => true,
                 'access_token' => $newToken,
                 'token_type' => 'Bearer',
-                'message' => 'Token refreshed successfully'
+                'response' => 'Token refreshed successfully'
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Token refresh failed',
+                'success' => false,
+                'response' => 'Token refresh failed',
                 'error' => $e->getMessage()
             ], 500);
         }
