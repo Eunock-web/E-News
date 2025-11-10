@@ -32,8 +32,7 @@ const NotificationToast: FC<NotificationProps> = ({type, message, id, close}) =>
             <div className="flex gap-1 mr-4">
               <Icon/>   
               <span>{message}</span>
-            </div>
-           
+            </div>           
         </div>    
   )
 }
