@@ -25,7 +25,7 @@ class UserRequestValidation extends FormRequest
             'name' => 'required | string | max:255',
             'email' => 'required | string | email | max:255 | unique:users',
             'password' => 'required | string | min:8 | confirmed',
-            'categories_user' => 'required | array'
+            'categories_user' => 'nullable '
         ];
     }
 
@@ -34,7 +34,6 @@ class UserRequestValidation extends FormRequest
             'name.required' => 'Name is required',
             'email.required' => 'Email is required',
             'password.required' => 'Password is required',
-            'categories_user.required' => 'Categories is required',
         ];
     }
 }
