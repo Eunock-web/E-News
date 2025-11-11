@@ -17,9 +17,10 @@ const useNotification = (notifications:NotificationProps[], setNotifications:Dis
                              
     }
 
-    const renderNotification = useCallback((message:string, type:NotificationType)=>{
+    const renderNotification = useCallback((message:string, type:NotificationType, persistant: boolean=false)=>{
 
         const newNotification: NotificationProps = {
+            persistant: persistant,
             id: Date.now().toString(),
             type: type,
             message: message,
@@ -27,8 +28,8 @@ const useNotification = (notifications:NotificationProps[], setNotifications:Dis
         }
 
         setNotifications(prev => [...prev, newNotification])
-
-        setTimeout(() => removeNotification(newNotification.id), NOTIFICATION_TIME)
+        if(!persistant)
+            setTimeout(() => removeNotification(newNotification.id), NOTIFICATION_TIME)
 
     }, [removeNotification])
 

@@ -1,5 +1,5 @@
 
-const BASEURL = 'http://127.0.0.1:8000/'; 
+const BASEURL = 'http://127.0.0.1:8000/api/'; 
 
 interface option  {
     'Content-Type': 'application/json',
@@ -27,9 +27,12 @@ export async function apiFetch(url:string, method = 'GET', data?:object ): Promi
             if(response.ok){
                 return response.json();
             }
-            throw new Error(`Status: ${response.status}, No response. Error raised`)             
+            throw new Error(`Status: ${response.status}, No response. Error raised.`)                         
         }
-        ).catch(err => console.error(err))
+        ).catch(err => {
+            console.error(err)
+            return err;
+        })
     }catch(error){
         return error;        
     }

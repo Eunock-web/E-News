@@ -1,4 +1,4 @@
-import useFormForgotPass from '../hooks/useFormForgotPass'
+import useFormForgotPass from '../hooks/Form/useFormForgotPass'
 import { Controller } from 'react-hook-form';
 import TextField from '../../../Utils/Components/TextField/TextField';
 import { emailProps } from '../../types';

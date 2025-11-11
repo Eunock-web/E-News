@@ -24,15 +24,15 @@ export const ForgotPassSchema = z.object({
 });
 export type ForgotPassInput = z.infer<typeof ForgotPassSchema>;
 
-export const RetrieveCodeSchema = z.object({
+export const ResetPassSchema = z.object({
     newPassword: z.string().min(8, "8 characters minimum!"),
     confirmPassword: z.string()
 }).refine( schema => schema.newPassword === schema.confirmPassword, {
     error: "Password don't match!",
     path: ['confirmPassword'],
-    when: (payload) => RetrieveCodeSchema.pick({newPassword:true}).safeParse(payload.value).success
+    when: (payload) => ResetPassSchema.pick({newPassword:true}).safeParse(payload.value).success
 });
-export type RetrieveCodeInputs = z.infer<typeof RetrieveCodeSchema>;
+export type ResetPassInputs = z.infer<typeof ResetPassSchema>;
 
 export const emailProps: ITextFieldProps = {
     type: 'email',

@@ -17,7 +17,8 @@ export const routes = createBrowserRouter([{
                 { path: 'login', index:true, Component: FormLogin},
                 { path: 'register', Component:  FormRegister},
                 { path:'forgot-password', Component: FormForgotPass },
-                { path:'reset-password', Component: FormResetPass }
+                { path:'reset-password', Component: FormResetPass },
+                { path: 'home', Component: AuthLayout}
             ]
         }  
     ]

@@ -8,7 +8,7 @@ const NotificationContainer:FC = () => {
   const { notifications, removeNotification } = useNotificationManager();
   return (
     <NotificationPortal>
-        <div className='fixed top-4 right-4 z-1000 animation'>
+        <div className='fixed top-4 right-4 z-1000 animation max-w-[30%]'>
             <div className='relative'>                
                 {notifications.map((nt, index) => <NotificationToast key={index} {...nt} close={()=>removeNotification(nt.id)} />)}                
             </div>            

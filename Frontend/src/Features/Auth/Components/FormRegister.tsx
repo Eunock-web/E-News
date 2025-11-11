@@ -1,6 +1,6 @@
 
 import { Controller } from 'react-hook-form'
-import useFormRegister from '../hooks/useFormRegister'
+import useFormRegister from '../hooks/Form/useFormRegister'
 import TextField from '../../../Utils/Components/TextField/TextField';
 import type { IButtonProps, ITextFieldProps } from '../../../Utils/Components/types';
 import Button from '../../../Utils/Components/Button/Button';

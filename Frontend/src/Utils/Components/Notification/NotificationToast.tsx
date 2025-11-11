@@ -4,6 +4,7 @@ import './NotificationToast.css'
 
 export type NotificationType = 'success' | 'error' | 'warning'
 export interface NotificationProps {
+    persistant?: boolean,
     type: NotificationType,
     message: string,
     id: string,
@@ -27,7 +28,7 @@ const NotificationToast: FC<NotificationProps> = ({type, message, id, close}) =>
             Icon = TriangleAlert
     }   
   return (
-        <div className={typeClass + 'font-semibold my-2 py-3 px-4 rounded-md w-full slide-left max-w-[20%]'} id={id}>
+        <div className={typeClass + 'font-semibold my-2 py-3 px-4 rounded-md w-full slide-left'} id={id}>
             <div className="w-full justify-items-end"><X className='w-4 h-4 flex justify-end' onClick={close}></X></div>
             <div className="flex gap-1 mr-4">
               <Icon/>   

@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form'
-import useFormResetPass from '../hooks/useFormResetPass'
+import useFormResetPass from '../hooks/Form/useFormResetPass'
 import TextField from '../../../Utils/Components/TextField/TextField';
 import { passwordProps } from '../../types';
 import Button from '../../../Utils/Components/Button/Button';

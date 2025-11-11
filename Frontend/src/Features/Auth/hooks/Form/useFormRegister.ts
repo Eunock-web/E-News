@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { RegisterSchema, type RegisterInputs } from '../../types'
-import { useMutationRegister } from './useMutationRegister'
+import { RegisterSchema, type RegisterInputs } from '../../../types'
+import { useMutationRegister } from '../Mutation/useMutationRegister'
 import { useNavigate } from 'react-router';
 
 const useFormRegister = () => {
