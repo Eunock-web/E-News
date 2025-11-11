@@ -14,4 +14,3 @@ export const FetchRegister = async (data:RegisterInputs) =>{
    const response: LoginResponse = await apiFetch('email/verify', 'POST', data);
    return response;
 }
-

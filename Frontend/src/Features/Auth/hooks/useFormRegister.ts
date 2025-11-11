@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { RegisterSchema, type RegisterInputs } from '../../types'
+import { useMutationRegister } from './useMutationRegister'
+import { useNavigate } from 'react-router';
 
 const useFormRegister = () => {
   const form = useForm<RegisterInputs>({
@@ -8,8 +10,13 @@ const useFormRegister = () => {
     mode:'onChange'
   })
 
-  const onSubmit = (data:RegisterInputs) => {
-    console.log(data)
+  const mutation = useMutationRegister();
+  const navigate = useNavigate();
+
+  const onSubmit = async (data:RegisterInputs) => {
+    await mutation.mutateAsync(data);
+    if(mutation.isSuccess)
+      navigate('/home');
   }
 
   return {

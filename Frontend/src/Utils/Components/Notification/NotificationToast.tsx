@@ -15,7 +15,7 @@ const NotificationToast: FC<NotificationProps> = ({type, message, id, close}) =>
     let Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>> = CircleCheck;
     switch(type){
         case 'success':
-            typeClass = 'bg-green-500 text-white';
+            typeClass = 'bg-green-500 text-white ';
             Icon = CircleCheck;
             break;
         case 'error':
@@ -27,7 +27,7 @@ const NotificationToast: FC<NotificationProps> = ({type, message, id, close}) =>
             Icon = TriangleAlert
     }   
   return (
-        <div className={typeClass + 'font-semibold my-2 py-3 px-4 rounded-md w-full slide-left'} id={id}>
+        <div className={typeClass + 'font-semibold my-2 py-3 px-4 rounded-md w-full slide-left max-w-[20%]'} id={id}>
             <div className="w-full justify-items-end"><X className='w-4 h-4 flex justify-end' onClick={close}></X></div>
             <div className="flex gap-1 mr-4">
               <Icon/>   
