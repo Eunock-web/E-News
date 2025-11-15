@@ -1,3 +1,4 @@
+import useNotificationManager from "../Utils/Components/Notification/hooks/useNotificationManager";
 
 const BASEURL = 'http://127.0.0.1:8000/api/'; 
 
@@ -23,16 +24,13 @@ export async function apiFetch(url:string, method = 'GET', data?:object ): Promi
     }
     
     try {
-        await fetch(BASEURL + url, options).then(response =>{ 
-            if(response.ok){
-                return response.json();
-            }
-            throw new Error(`Status: ${response.status}, No response. Error raised.`)                         
-        }
+        const res = await fetch(BASEURL + url, options).then((response) =>
+            response.json()
         ).catch(err => {
-            console.error(err)
-            return err;
-        })
+            console.error(err);          
+            throw err;
+        });        
+        return res;
     }catch(error){
         return error;        
     }
