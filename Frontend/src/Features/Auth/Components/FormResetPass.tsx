@@ -20,7 +20,7 @@ const FormResetPass = () => {
         <Controller 
             control={control}
             rules={{required:true}}
-            name='confirmPassword'
+            name='password_confirmation'
             render={({field, fieldState: {error}})=> <TextField {...passwordProps} {...field} label='Confirm Password' errorMessage={field.value ? error?.message : ''}/>}
         />
         <div className='flex justify-end gap-3 mt-5'>

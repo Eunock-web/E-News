@@ -19,7 +19,7 @@ class AuthentificationController extends Controller
     public function register(UserRequestValidation $request)
     {
         $credentials = $request->validated();
-        
+
         $user = User::create([
             'name' => $credentials['name'],
             'email' => $credentials['email'],

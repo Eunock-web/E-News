@@ -12,17 +12,18 @@ export const useMutationRegister = () => {
     const mutation = useMutation({
         mutationKey:['register'],
         mutationFn: (data:RegisterInputs)=>FetchAuth('register', data),
-        onSuccess:()=>{
+        onSuccess:(data)=>{
             client.invalidateQueries({queryKey: ['register']})
-            if(mutation.data?.message){
-                notify(mutation.data?.message, 'success');    
+            if(data?.message){
+                notify(data?.message, 'success');    
                 return;            
             }       
             notify("An error occured!", 'error');   
         },
-        onError: ()=>{
-            if(mutation.data)
-                notify(mutation.data?.message, 'error');                                      
+        onError: (data)=>{
+            client.invalidateQueries({queryKey: ['register']})
+            if(data)
+                notify(data?.message, 'error');                                      
         }
     })
   return mutation

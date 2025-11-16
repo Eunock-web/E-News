@@ -21,11 +21,11 @@ const FormRegister = () => {
         onChange: () => {},
         placeholder: '••••••••••'
     }
-    const confirmPasswordProps: ITextFieldProps = {
+    const password_confirmationProps: ITextFieldProps = {
         ...passwordProps,
         label: 'Confirm Password'
     } 
-    const usernameProps: ITextFieldProps = {
+    const nameProps: ITextFieldProps = {
         label: 'Username',
         type: 'text',
         onChange:()=>{},
@@ -48,10 +48,10 @@ const FormRegister = () => {
             render={({field, fieldState: {error}}) => <TextField {...emailProps} {...field} errorMessage={field.value ? error?.message :  ''}/>}
         />
         <Controller
-            name='username'
+            name='name'
             control={control}
             rules={{required:true}}
-            render={({field, fieldState: {error}}) => <TextField {...usernameProps} {...field} errorMessage={field.value ? error?.message : ''} />}
+            render={({field, fieldState: {error}}) => <TextField {...nameProps} {...field} errorMessage={field.value ? error?.message : ''} />}
         />
         <Controller
             name='password'
@@ -60,10 +60,10 @@ const FormRegister = () => {
             render={({field, fieldState: {error}}) => <TextField {...passwordProps} {...field} errorMessage={field.value ? error?.message : ''} />}
         />
         <Controller
-            name='confirmPassword'
+            name='password_confirmation'
             control={control}
             rules={{required:true}}
-            render={({field, fieldState: {error}}) => <TextField {...confirmPasswordProps} {...field} errorMessage={field.value ? error?.message : ''}/>}
+            render={({field, fieldState: {error}}) => <TextField {...password_confirmationProps} {...field} errorMessage={field.value ? error?.message : ''}/>}
         />
         <div className='flex gap-3 items-baseline pl-1 mt-5'>
             <input type="checkbox" id='check' className='scale-130 translate-y-[30%]' required/>

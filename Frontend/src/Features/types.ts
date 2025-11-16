@@ -8,14 +8,15 @@ export const LoginSchema = z.object({
 export type LoginInputs = z.infer<typeof LoginSchema>;
 
 export const RegisterSchema = z.object({
-    username: z.string().min(2, "Enter a valid username!"),
+    name: z.string().min(2, "Enter a valid name!"),
     email: z.email("Invalid Email!"),
     password: z.string().min(8, "8 characters minimum!"),
-    confirmPassword: z.string()
-}).refine(schema => schema.password === schema.confirmPassword, {
+    password_confirmation: z.string(),
+    "categories_user": z.array(z.string()).default([]).optional()
+}).refine(schema => schema.password === schema.password_confirmation, {
     error: "Passwords don't match!",
-    path:['confirmPassword'],
-    when: (payload) => RegisterSchema.pick({confirmPassword: true}).safeParse(payload.value).success 
+    path:['password_confirmation'],
+    when: (payload) => RegisterSchema.pick({password_confirmation: true}).safeParse(payload.value).success 
 })
 export type RegisterInputs = z.infer<typeof RegisterSchema>;
 
@@ -26,10 +27,10 @@ export type ForgotPassInput = z.infer<typeof ForgotPassSchema>;
 
 export const ResetPassSchema = z.object({
     newPassword: z.string().min(8, "8 characters minimum!"),
-    confirmPassword: z.string()
-}).refine( schema => schema.newPassword === schema.confirmPassword, {
+    password_confirmation: z.string()
+}).refine( schema => schema.newPassword === schema.password_confirmation, {
     error: "Password don't match!",
-    path: ['confirmPassword'],
+    path: ['password_confirmation'],
     when: (payload) => ResetPassSchema.pick({newPassword:true}).safeParse(payload.value).success
 });
 export type ResetPassInputs = z.infer<typeof ResetPassSchema>;

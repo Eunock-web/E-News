@@ -1,31 +1,35 @@
-import useNotificationManager from "../Utils/Components/Notification/hooks/useNotificationManager";
 
 const BASEURL = 'http://127.0.0.1:8000/api/'; 
 
 interface option  {
     'Content-Type': 'application/json',
     'Authorization': string,
-    data?: object,
+    body?: object,
     method: string
 };
 
 export async function apiFetch(url:string, method = 'GET', data?:object ): Promise<any>{
-    const options: option = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer',
-        data: {},
+    const options: RequestInit = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer',
+            'Accept': 'application/json'
+        },
         method: method
     }
+
     if(data) {
-        method = 'POST'
-        options.data = data
-    }else {
-        delete options.data
+        options.method = 'POST'
+        options.body = JSON.stringify(data)
     }
     
     try {
-        const res = await fetch(BASEURL + url, options).then((response) =>
-            response.json()
+        const res = await fetch(BASEURL + url, options).then((response) =>{
+            if(!response.ok)
+                throw "An error occured";
+            
+            return response.json()
+        }
         ).catch(err => {
             console.error(err);          
             throw err;
