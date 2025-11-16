@@ -1,12 +1,6 @@
 
 const BASEURL = 'http://127.0.0.1:8000/api/'; 
 
-interface option  {
-    'Content-Type': 'application/json',
-    'Authorization': string,
-    body?: object,
-    method: string
-};
 
 export async function apiFetch(url:string, method = 'GET', data?:object ): Promise<any>{
     const options: RequestInit = {
@@ -27,7 +21,7 @@ export async function apiFetch(url:string, method = 'GET', data?:object ): Promi
         const res = await fetch(BASEURL + url, options).then((response) =>{
             if(!response.ok)
                 throw "An error occured";
-            
+
             return response.json()
         }
         ).catch(err => {
