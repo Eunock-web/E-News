@@ -8,7 +8,7 @@ import { Link } from 'react-router';
 const FormResetPass = () => {
     const {control, onSubmit} = useFormResetPass();
   return (
-    <form onSubmit={onSubmit} className='w-[30%] m-auto h-max'>
+    <form onSubmit={onSubmit} className='w-[80%] md:w-[60%] lg:w-[35%] m-auto h-max'>
         <h1 className='text-3xl'>Reset Password</h1>
         <hr className='my-5 border-gray-400'/>
         <Controller 

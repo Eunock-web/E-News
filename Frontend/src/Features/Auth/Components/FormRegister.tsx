@@ -38,7 +38,7 @@ const FormRegister = () => {
         className:'w-[60%] m-auto mt-5 bg-(--bg-primary) text-white py-2'
     }
   return (
-    <form onSubmit={onSubmit} className='w-[35%] m-auto h-max'>
+    <form onSubmit={onSubmit} className='w-[80%] md:w-[50%] sm:w-[60%] lg:w-[35%] m-auto h-max mt-10'>
         <h1 className='font-semibold text-2xl'>Ready to get informed!</h1>
         <hr className='my-3 border-gray-300' />
         <Controller

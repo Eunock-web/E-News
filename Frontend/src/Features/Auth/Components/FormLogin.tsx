@@ -18,7 +18,7 @@ const FormLogin = () => {
   }
 
   return (
-    <form className='w-[35%] rounded-xl p-4 m-auto h-max' onSubmit={onSubmit}>
+    <form className='w-[80%] sm:w-[60%] md:w-[50%] lg:w-[35%] rounded-xl p-4 m-auto h-max' onSubmit={onSubmit}>
         <h1 className='text-2xl '>Welcome back!</h1>
         <hr className='my-3 border-gray-300' />
       

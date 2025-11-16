@@ -9,7 +9,7 @@ const FormForgotPass = () => {
     const {control, onSubmit} = useFormForgotPass();
 
     return (
-    <form className='w-[30%] m-auto h-max' onSubmit={onSubmit}>
+    <form className='w-[80%] md:w-[60%] lg:w-[35%] m-auto h-max' onSubmit={onSubmit}>
         <h1 className='text-2xl'>Identify your account</h1>
         <p className='mt-5 text-gray-400 '>Enter your registered email to identify your account and reset your password.</p>
         <Controller 
