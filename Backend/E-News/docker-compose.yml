@@ -1,0 +1,47 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # --- 1. Service Base de Données (Exemple: MySQL) ---
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: AZERTY123$
+      MYSQL_DATABASE: enews
+    volumes:
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+  # --- 2. Service Backend (Laravel, utilisant le Dockerfile racine) ---
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: laravel_api
+    restart: always
+    volumes:
+      # Montage des fichiers PHP pour le développement local (à retirer en prod)
+      - ./backend:/var/www
+    environment:
+      # Variables d'environnement pour Laravel
+      APP_ENV: production
+      DB_HOST: db
+      DB_DATABASE: enews
+      DB_USERNAME: root
+      DB_PASSWORD: AZERTY123$
+      # ... autres variables ...
+    networks:
+      - app-network
+      
+# Réseaux
+networks:
+  app-network:
+    driver: bridge
+
+# Volumes persistants pour la base de données
+volumes:
+  dbdata: enews
